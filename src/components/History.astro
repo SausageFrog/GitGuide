@@ -1,9 +1,31 @@
 ---
 // Git & Github History 
 // v1
+import { Image } from "astro:assets";
+import Torvalds from "../assets/images/linus-torvalds.webp"
+
 ---
 
 <section>
-    <h2>Breve Historia</h2>
-    <article></article>
+    <article>
+        <h2>Git</h2>
+        <section>
+            <p>Git nace en abril de 2005, luego de que Linus Torvalds se viera en la necesidad de contar con un sistema de control de versiones.</p>
+            <p>Dicha necesidad nacio despues de que BitKeeper (el sistema propietario que usaban) les quitara la licencia debido a un incidente que involucra a Andrew Tridgell quien intento hacerle Ingenieria Inversa a los protocolos de BitKeeper para crear una herramienta libre.</p>
+            <p>Linus Torvalds paso un par de meses evaluando la arquitectura que git tendria. Para luego comenzar su desarrollo un 3 de abril de 2005.</p>
+            <p>Torvalds, el solo, en tan solo 10 dias, termino la primera version usable de Git.</p>
+        </section>
+        <figure>
+            <!-- <Image src={Torvalds} alt="test"/> -->
+        </figure>
+    </article>
+    <article>
+        <h2>GitHub</h2>
+        <section>
+            <p>Por otro lado, GitHub nace de la necesidad de un servicio comodo en la nube para alojar repositorios y hacer que Git fuera visual y "social".</p>
+            <p>Git era muy potente y flexible, pero carecia de facilidad de uso para la mayoria de las personas. En febrero de 2008 Tom Preston-Werner, Chris Wanstrath, P. J. Hyett y Scott Chacon fundaron GitHub en San Francisco.</p>
+            <p>GitHub permite poder ver cada cambio en las versiones de un proyecto manejado en Git de manera comoda, visual y potenciar mucho mas el desarrollo en equipo.</p>
+            <p>Para esto, GitHub cuenta con conceptos como Pull Request, Issues, Forks, el uso de Organizaciones y Equipos, entre muchas opciones mas.</p>
+        </section>
+    </article>
 </section>

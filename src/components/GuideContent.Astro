@@ -1,20 +1,11 @@
 ---
-// src/components/GuideContent.astro
-import Terminal from "./Terminal.jsx";
-
-const gitConfigUser = [
-  { type: 'input', prompt: '#', value: 'git config --global user.name "Nico Quevedo"' },
-  { type: 'input', prompt: '#', value: 'git config --global user.email "test.email@gmail.com"' },
-];
-
-const gitKeygen = [
-  { type: 'input', prompt: '#', value: 'ssh-keygen -t ed25519 -C "test.email@gmail.com"' },
-  { type: 'input', prompt: '#', value: 'test' },
-];
+import History from "../components/History.astro";
+import Concepts from "../components/Concepts.astro";
+import Workflow from "../components/Workflow.astro";
 
 ---
-
-<div class="flex flex-col gap-4">
-  <Terminal client:visible lines={gitConfigUser} />
-  <Terminal client:visible lines={gitKeygen} />
-</div>
+<section class="flex flex-col p-16">
+    <!-- <History />
+    <Concepts /> -->
+    <Workflow />
+</section>
