@@ -4,10 +4,11 @@ import './Terminal.module.css';
 
 function Terminal({
   lines = [],
-  typeDelay = 90,
-  lineDelay = 1500,
+  typeDelay = 20,
+  lineDelay = 1000,
   startDelay = 600,
   cursor = '▋',
+  size = "",
 }) {
   const [renderedLines, setRenderedLines] = useState([]);
   const [activeLine, setActiveLine] = useState(null);
@@ -96,7 +97,7 @@ function Terminal({
   };
 
   return (
-    <div data-termynal key={`${linesKey}-${runId}`}>
+    <div data-termynal key={`${linesKey}-${runId}`} class={size}>
       <button type='button' class="termynal-restart" onClick={() => setRunId((prev) => prev + 1)}>↻</button>
 
       {renderedLines.map((line, idx) => (
