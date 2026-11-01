@@ -9,20 +9,29 @@ const gitClone = [
     { type: 'progress', progressChar: '·' },
     { value: 'Resolving deltas: 100% (11/11), done.' },
     { type: 'input', prompt: '#', value: 'cd WebICINF/' },
-   /*  { type: 'input', prompt: '~/WebICINF (main)', value: '' },
-    { type: 'input', prompt: '#', value: '' }, */
+    { value: '> ~/WebICINF (main) #' },
 
+];
 
+const gitSync = [
+    { type: 'input', prompt: '#', value: 'git fetch' },
+    { type: 'input', prompt: '#', value: 'git switch dev' },
+    { type: 'input', prompt: '#', value: 'git pull origin dev' },
 ];
 
 const gitBranch = [
-    { type: 'input', prompt: '#', value: 'git config --global user.name "Nico Quevedo"' },
-    { type: 'input', prompt: '#', value: 'git config --global user.email "test.email@gmail.com"' },
+    { type: 'input', prompt: '#', value: 'git switch -c feat/workflow-page' },
+    { value: 'Switched to a new branch feat/workflow-page' },
+    { value: '> ~/WebICINF (feat/workflow-page) #' },
 ];
 
 const gitPushFlow = [
-    { type: 'input', prompt: '#', value: 'git config --global user.name "Nico Quevedo"' },
-    { type: 'input', prompt: '#', value: 'git config --global user.email "test.email@gmail.com"' },
+    { type: 'input', prompt: '#', value: 'git add .' },
+    { type: 'input', prompt: '#', value: 'git commit -m "fix: Bug de tarjetas de noticias en dispositivos moviles."' },
+    { type: 'input', prompt: '#', value: 'git push -u origin feat/workflow-page' },
+    { value: '* Para los siguientes push es: ' },
+    { type: 'input', prompt: '#', value: 'git push origin feat/workflow-page' },
+    
 ];
 
 
@@ -37,17 +46,19 @@ const gitPushFlow = [
         <h3>Clonar repositorio via SSH</h3>
         <p>Lo primero que se hara en un desarrollo es clonar el repositorio a trabajar usando SSH y usar nuestras llaves locales que previamente creamos.</p>
         <p>Eliminando la necesidad de ingresar Tokens o Inicio de Sesion en cada interaccion con el repositorio, como si ocurre con HTTPS.</p>
-        <Terminal client:visible lines={gitClone} size="h-[366px]"'/>
+        <Terminal client:visible lines={gitClone} size="h-[366px]"/>
     </section>
     <section>
         <h3>Sincronizacion y cambio a la rama de desarrollo</h3>
         <p></p>
+        <Terminal client:visible lines={gitSync} size=""/>
     </section>
     <section>
         <h3>Creacion de la rama de trabajo (Feature Branch)</h3>
         <p>Haremos la creacion de la primera rama paralela a la rama de desarrollo (dev).</p>
         <p>Esta nueva rama creada sera donde trabajaremos.</p>
         <p>El nombre de la rama puede seguir la nomenclatura usada en gitflow (feat/, fix/)</p>
+        <Terminal client:visible lines={gitBranch} size=""/>
     </section>
     <section>
         <h3>Inicia el trabajo local</h3>
@@ -59,7 +70,7 @@ const gitPushFlow = [
         <p>Puedes subir cambios de manera periodica para guardar tu trabajo de manera remota en tu rama creada. Lo optimo es realizar estos cambios cada vez que finaliza una sesion de desarrollo</p>
         <p>Si es la primera vez que se sube la rama, es indispensable agregar el parametro -u, ya que vincula la rama local con una nueva rama en GitHub.</p>
         <p>Para los siguientes commits en la misma rama, basta con ejecutar un git push</p>
-
+        <Terminal client:visible lines={gitPushFlow} size=""/>
     </section>
     <section>
         <h3>Pull Request (PR) y Ciclo de Revision</h3>
