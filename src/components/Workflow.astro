@@ -1,136 +1,160 @@
 ---
 import { Image } from 'astro:assets';
+import { Code } from '@lucide/astro';
 import Terminal from '../components/Terminal.jsx';
 
-/* import PullRequest from "../assets/images/pull-request.GIF"; */
+import PullRequest from "../assets/images/pull-request.GIF";
+
 
 const gitClone = [
-    { type: 'input', prompt: '#', value: 'git clone git@github.com:DevClub-UA/WebICINF.git' },
+    { type: 'input', prompt: '$', value: 'git clone git@github.com:DevClub-UA/WebICINF.git' },
     { value: 'Cloning into WebICINF...' },
-    { value: 'Enter passphrase for key /c/Users/Nico/.ssh/id_ed25519:' },
+    { type: 'input', value: "Enter passphrase for key '/c/Users/Nico/.ssh/id_ed25519': ***********" },
     { value: 'remote: Enumerating objects: 64, done.' },
     { type: 'progress', progressChar: '·' },
     { value: 'Resolving deltas: 100% (11/11), done.' },
-    { type: 'input', prompt: '#', value: 'cd WebICINF/' },
-    { value: '> ~/WebICINF (main) #' },
+    { type: 'input', prompt: '$', value: 'cd WebICINF/' },
+    { value: '> ~/WebICINF (main) $' },
 
 ];
 
 const gitSync = [
-    { type: 'input', prompt: '#', value: 'git fetch' },
-    { type: 'input', prompt: '#', value: 'git switch dev' },
-    { type: 'input', prompt: '#', value: 'git pull origin dev' },
+    { type: 'input', prompt: '> ~/WebICINF (main) $', value: 'git fetch' },
+    { type: 'input', prompt: '> ~/WebICINF (main) $', value: 'git switch dev' },
+    { value: "Switched to a new branch 'dev'" },
+    { type: 'input', prompt: '> ~/WebICINF (dev) $', value: 'git pull origin dev' },
+    { type: 'input', value: "Enter passphrase for key '/c/Users/Nico/.ssh/id_ed25519': ***********" },
+    { type: 'progress', progressChar: '+' },
+    { type: 'input', prompt: '> ~/WebICINF (main) $' },
 ];
 
 const gitBranch = [
-    { type: 'input', prompt: '#', value: 'git switch -c feat/workflow-page' },
+    { type: 'input', prompt: '$', value: 'git switch -c feat/workflow-page' },
     { value: 'Switched to a new branch feat/workflow-page' },
-    { value: '> ~/WebICINF (feat/workflow-page) #' },
+    { value: '> ~/WebICINF (feat/workflow-page) $' },
 ];
 
 const gitPushFlow = [
-    { type: 'input', prompt: '#', value: 'git add .' },
-    { type: 'input', prompt: '#', value: 'git commit -m "fix: Bug de tarjetas de noticias en dispositivos moviles."' },
-    { type: 'input', prompt: '#', value: 'git push -u origin feat/workflow-page' },
+    { type: 'input', prompt: '$', value: 'git add .' },
+    { type: 'input', prompt: '$', value: 'git commit -m "fix: Bug de tarjetas de noticias en dispositivos moviles."' },
+    { type: 'input', prompt: '$', value: 'git push -u origin feat/workflow-page' },
     { value: '* Para los siguientes push es: ' },
-    { type: 'input', prompt: '#', value: 'git push origin feat/workflow-page' },  
+    { type: 'input', prompt: '$', value: 'git push origin feat/workflow-page' },  
 ];
 
 const gitBranchDelete = [
-    { type: 'input', prompt: '#', value: 'git switch dev' },
+    { type: 'input', prompt: '$', value: 'git switch dev' },
     { value: "Switched to branch 'dev'" },
-    { type: 'input', prompt: '#', value: 'git pull origin dev' },
-    { type: 'input', value: "Enter passphrase for key '/c/Users/Nico/.ssh/id_ed25519': ********" },
+    { type: 'input', prompt: '$', value: 'git pull origin dev' },
+    { type: 'input', value: "Enter passphrase for key '/c/Users/Nico/.ssh/id_ed25519': ***********" },
     { value: "From github.com:SausageFrog/gitguide" },
     { value: " * branch            dev        -> FETCH_HEAD" },
     { value: "Updating d7ed3fb..586cb12" },
     { type: 'progress', progressChar: '+' },
     { value: " 1 file changed, 19 insertions(+), 8 deletions(-)" },
-    { type: 'input', prompt: '#', value: 'git branch -d feat/workflow-page' },
+    { type: 'input', prompt: '$', value: 'git branch -d feat/workflow-page' },
     { value: 'Deleted branch feat/workflow-page (was c3e9484).' },
 ];
 
 ---
 
-
-
-<section class="flex flex-col gap-16">
-    <h2 class="text-3xl">Tu Primer Push en Desarrollo como Equipo</h2>
+<section id="workflow" class="flex flex-col gap-12">
     <section class="workflowContent">
-        <h3>Clonar repositorio via SSH</h3>
-        <div>
-            <p>Lo primero que se hara en un desarrollo es clonar el repositorio a trabajar usando SSH y usar nuestras llaves locales que previamente creamos.</p>
-            <p>Eliminando la necesidad de ingresar Tokens o Inicio de Sesion en cada interaccion con el repositorio, como si ocurre con HTTPS.</p>
-        </div>
-        <Terminal client:visible lines={gitClone} size=""/>
+        <header>
+            <h2 class="text-3xl">Tu Primer Push en Desarrollo</h2>
+            <h3>1. Clonar repositorio via SSH</h3>
+            <div class="flex flex-col gap-2">
+                <p>Lo primero que se hara en un desarrollo es clonar el repositorio a trabajar usando SSH y usar nuestras llaves locales que previamente creamos.</p>
+                <p>Eliminando la necesidad de ingresar Tokens o Inicio de Sesion en cada interaccion con el repositorio, como si ocurre con HTTPS.</p>
+                <p>Para clonar cualquier proyecto, necesitas copiar su dirección exacta directamente desde GitHub: 
+                <p>1. Ve a la página principal del repositorio en el que vas a trabajar.</p>
+                <span class="flex flex-row gap-4 items-center">
+                    <p>2. Haz clic en el botón verde</p>   
+                    <span class="flex flex-row rounded-md text-white items-center justify-center gap-1 bg-[#1f883d] w-[100px] h-8"> 
+                        <Code class='h-4'/> Code <svg data-component="Octicon" aria-hidden="true" focusable="false" class="octicon octicon-triangle-down" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg> 
+                    </span> 
+                </span>
+                </p>
+                <p>3. Selecciona la pestaña SSH (asegúrate de no estar en la pestaña HTTPS).</p>
+                <p> 4. Copia la URL que aparece en pantalla (debe comenzar obligatoriamente con git@github.com:...</p>
+                <p>Esa es la URL que pegarás en tu terminal acompañando al comando <code>git clone</code></p>
+            </div>
+        </header>
+        <Terminal client:visible lines={gitClone} size="h-[370px]"/>
     </section>
     <section class="workflowContent">
-        <h3>Sincronizacion y cambio a la rama de desarrollo</h3>
-        <div>
-            <p></p>
-        </div>
-        <Terminal client:visible lines={gitSync} size=""/>
+        <header>
+            <h3>2. Sincronizacion y cambio a la rama de desarrollo</h3>
+            <p>Antes de crear tu propia rama, debes asegurarte de estar posicionado en la rama base correcta (usualmente dev) y descargar los últimos cambios de tus compañeros para no heredar código obsoleto.</p>
+        </header>
+        <Terminal client:visible lines={gitSync} size="h-[340px]"/>
     </section>
     <section class="workflowContent">
-        <h3>Creacion de la rama de trabajo (Feature Branch)</h3>
-        <div>
-            <p>Haremos la creacion de la primera rama paralela a la rama de desarrollo (dev).</p>
-            <p>Esta nueva rama creada sera donde trabajaremos.</p>
-            <p>El nombre de la rama puede seguir la nomenclatura usada en gitflow (feat/, fix/)</p>
-        </div>
-        <Terminal client:visible lines={gitBranch} size=""/>
+        <header>
+            <h3>3. Creacion de la rama de trabajo (Feature Branch)</h3>
+            <p>Haremos la creacion de la primera rama paralela a la rama de desarrollo (dev). En esta nueva rama es donde realizarás todo tu trabajo sin afectar el código base.</p>
+            <p>Aunque no es estrictamente obligatorio por Git, es una excelente práctica de equipo utilizar convenciones de nomenclatura (como las de GitFlow) para nombrar tu rama. Esto permite a cualquier miembro del equipo saber inmediatamente qué tipo de trabajo se está realizando con solo leer el nombre.</p>
+            <p>Pueden ser:</p>
+            <ul class="px-4">
+                <li type="circle"><code>feat/</code>Para desarrollar nuevas funcionalidades</li>
+                <li type="circle"><code>fix/</code>Para solucionar errores o bugs en el código existente</li>
+                <li type="circle"><code>docs/</code>Para cambios exclusivos en la documentación.</li>
+            </ul>
+        </header>
+        <Terminal client:visible lines={gitBranch} size="h-[207px]"/>
     </section>
     <section class="workflowContent">
-        <h3>Inicia el trabajo local</h3>
-        <div>
+        <header>
+            <h3>4. Trabajo local</h3>
             <p>En esta etapa eres libre de comenzar el desarrollo, modificar archivos, crear o eliminar archivos (si fuese necesario).</p>
             <p>Puedes realizar un <code>git fetch</code> periodicamente para comprobar si la rama dev ha sufrido actualizacion, manteniendo asi tu entorno de desarrollo actualizado.</p>
-        </div>
+        </header>
     </section>
     <section class="workflowContent">
-        <h3>Subir cambios (Add, Commit, Push)</h3>
-        <div>
+        <header>
+            <h3>5. Subir cambios (Add, Commit, Push)</h3>
             <p>Puedes subir cambios de manera periodica para guardar tu trabajo de manera remota en tu rama creada. <br /> Lo optimo es realizar estos cambios cada vez que finaliza una sesion de desarrollo.</p>
-            <p>Si es la primera vez que se sube la rama, es indispensable agregar el parametro -u, ya que vincula la rama local con una nueva rama en GitHub.</p>
-            <p>Para los siguientes commits en la misma rama, basta con ejecutar un git push.</p>
-        </div>
-        <Terminal client:visible lines={gitPushFlow} size=""/>
+            <p>Si es la primera vez que se sube la rama, es indispensable agregar el parametro -u (upstream), ya que vincula la rama local con una nueva rama en GitHub.</p>
+            <p>Para los siguientes commits en la misma rama, basta con ejecutar un git push ... sin el parametro -u.</p>
+        </header>
+        <Terminal client:visible lines={gitPushFlow} size="h-[275px]"/>
     </section>
     <section class="flex flex-row gap-8">
-        <article class="w-[1400px]">
+        <article class="w-[60dvw] text-justify">
             <header>
-                <h3 class="text-2xl font-bold">Pull Request (PR) y Ciclo de Revision</h3>
+                <h3 class="text-2xl font-bold">6. Pull Request (PR) y Ciclo de Revision</h3>
             </header>
-            <p class="text-lg">Una vez tu trabajo esta finalizado, es momento de enviar tu trabajo a revision mediante un Pull Request, para este ser fusionado con la rama de desarrollo.</p>
-            <p class="text-lg">Como desarrollador debes abrir un Pull Request en GitHub solicitando la fusion de tu rama de trabajo hacia la rama de desarrollo y asignar un supervisor. 
-                El Pull Request es iterativo, por lo que el supervisor o lider de proyecto revisara el codigo, solicitara correcciones o sugerira mejoras. <br/ >
+            <p class="text-lg">Una vez tu trabajo esta finalizado, es momento de enviar tu trabajo a revision mediante un Pull Request, para este ser fusionado con la rama de desarrollo. Como desarrollador debes abrir un Pull Request en GitHub solicitando la fusion de tu rama de trabajo hacia la rama de desarrollo y asignar un supervisor.</p>
+            <p class="text-lg mt-2"> 
+                El Pull Request es iterativo, por lo que el supervisor o lider de proyecto revisara el codigo, solicitara correcciones o sugerira mejoras.
                 En dicho caso puedes volver a subir cambios a tu rama de trabajo y el Pull Request se actualizara de manera automatica sin necesidad de abrir un nuevo Pull Request.
             </p>
+            <p>Al crear el Pull Request, verifica siempre en la interfaz de GitHub que la rama destino (base) sea dev y no main</p>
         </article>
-        <figure class="h-[800px]">
-            <!-- <img src={PullRequest.src} alt=""> -->
+        <figure class="w-[40dvw]">
+            <Image src={PullRequest} alt="" />
         </figure>
     </section>
     <section class="workflowContent">
-        <h3>Aprovacion, Merge y Eliminacion de la rama</h3>
-        <div>
+        <header>
+            <h3>7. Aprovacion, Merge y Eliminacion de la rama</h3>
             <p>Una vez el codigo cumple con lo esperado, el lider de proyecto aprovara el Pull Request abierto por ti y realizara el Merge hacia la rama de desarrollo dev. <br />
             Con la rama de trabajo ya fusionada a la de desarrollo, tu rama de trabajo sera eliminada por cualquiera de los supervisores del proyecto. Esto se hace para evitar saturar el proyecto de ramas.</p>
-        </div>
+        </header>
     </section>
     <section class="workflowContent">
-        <h3>Integracion a Produccion (main)</h3>
-        <div>
-            <p></p>
-        </div>
+        <header>
+            <h3>8. Integracion a Produccion (main)</h3>
+            <p>Una vez que la rama dev ha acumulado suficientes características estables y han sido probadas en conjunto, se abre un Pull Request desde dev hacia main para lanzar una nueva versión oficial y limpia del proyecto.</p>
+        </header>
     </section>
     <section class="workflowContent">
-        <h3>Limpieza local</h3>
-        <div>
+        <header>
+            <h3>9. Limpieza local</h3>
             <p>Tu rama de trabajo ya ha desaparecido de manera remota, pero no de manera local.</p>
             <p>Por lo que cambiaremos a la rama de desarrollo (dev), eliminaremos la rama de trabajo personal local y volveremos a crear una nueva rama de trabajo si fuese necesario, repitiendo el ciclo.</p>
-        </div>
-        <Terminal client:visible lines={gitBranchDelete} size="h-[512px]"/>
+        </header>
+        <Terminal client:visible lines={gitBranchDelete} size="h-[467px]"/>
     </section>
 
     

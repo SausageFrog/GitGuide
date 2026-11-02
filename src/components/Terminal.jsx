@@ -1,4 +1,8 @@
-// src/components/TerminalR.jsx
+// src/components/Terminal.jsx
+// Original Project by @ines: https://github.com/ines/termynal
+// This is a port of Termynal Library to React.
+
+
 import { useState, useEffect } from 'react';
 import './Terminal.module.css';
 

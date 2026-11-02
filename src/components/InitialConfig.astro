@@ -1,0 +1,87 @@
+---
+// src/components/InitialConfig.astro
+import Terminal from "./Terminal.jsx";
+import { Image } from "astro:assets";
+import { ExternalLink } from '@lucide/astro';
+
+import GithubKey from "../assets/images/GithubKey.gif";
+
+const gitConfigUser = [
+  { type: 'input', prompt: '$', value: 'git config --global user.name "Nico Quevedo"' },
+  { type: 'input', prompt: '$', value: 'git config --global user.email "test.email@gmail.com"' },
+];
+
+const gitKeygen = [
+  { type: 'input', prompt: '$', value: 'ssh-keygen -t ed25519 -C "test.email@gmail.com"' },
+  { value: 'Generating public/private ed25519 key pair.' },
+  { value: 'Enter file in which to save the key (/c/Users/Nico/.ssh/id_ed25519):' },
+  { type: 'input', prompt: '>', value: 'Enter passphrase for "/c/Users/Nico/.ssh/id_ed25519" (empty for no passphrase): ***********' },
+  { type: 'input', prompt: '>', value: 'Enter same passphrase again: ***********' },
+  { value: 'Your identification has been saved in /c/Users/Nico/.ssh/id_ed25519' },
+  { value: 'Your public key has been saved in /c/Users/Nico/.ssh/id_ed25519.pub' },
+  { value: 'The key fingerprint is:' },
+  { value: 'SHA256:FGcGDHFBzOiMoD+LzrGT2SRxsPO40faSffwnnboH+jDY test.email@gmail.com' },
+  { value: 'The keys randomart image is:' },
+  { value: "+--[ED25519 256]--+"},
+  { value: "..."},
+  { value: "+----[SHA256]-----+"},
+  { value: '$' }
+];
+
+const gitPubKey = [
+    { type: 'input', prompt: '$', value: 'cd .ssh/' },
+    { type: 'input', prompt: '> ~/.ssh $', value: 'cat id_ed25519.pub' },
+    { value: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5TTTTIP+T01dasgJtYGOX4ARBBe4lP9DSATW7znWt+BESD123 test.email@gmail.com' },
+]
+
+const gitTestConnection = [
+    { type: 'input', prompt: '$', value: 'ssh -T git@github.com' },
+    { value: 'The authenticity of host github.com (4.228.31.150) cant be established.' },
+    { value: 'ED25519 key fingerprint is: SHA256:+DiYDs3wvvVDAS3TuJJhbpZisF/sLDT0zPBSvHHFHr4UvCOqU' },
+    { type: 'input', prompt: '>', value: 'Are you sure you want to continue connecting (yes/no/[fingerprint])? yes' },
+    { value: 'Warning: Permanently added github.com (ED25519) to the list of known hosts.' },
+    { type: 'input', prompt: '>', value: "Enter passphrase for key '/c/Users/Nico/.ssh/id_ed25519': ***********" },
+    { value: 'Hi SausageFrog! You have successfully authenticated, but GitHub does not provide shell access.' },
+]
+
+---
+
+<section id="initial-config" class="flex flex-col gap-4 mb-12">
+  <header>
+    <h2 class="text-2xl">Configuracion Inicial</h2>
+    <p>Configuracion global de usuario y correo, creacion de la clave criptografica, enlazar clave criptografica a Github y prueba de conexion.</p>
+    <p class="flex flex-row gap-1">Esta guia es compatible con Windows (mediante <a href="https://git-scm.com/install/windows" class="flex flex-row"> Git Bash <ExternalLink class="w-4 ml-1"/> </a>), Linux, macOS o sistemas bajo el estandar POSIX.</p>
+  </header>
+  <section>
+    <header class="mb-4">
+      <h3 class="text-lg">Configuracion global de usuario y correo.</h3>
+      <p>Para que Git pueda firmar quién hizo cada modificación, se debe configurar la identidad. Reemplaza los valores entre comillas con tu nombre y correo electrónico.</p>
+      <p class="text-sm font-semibold">El correo electrónico que ingreses aquí debe ser exactamente el mismo que tienes asociado a tu cuenta de GitHub. De lo contrario, tus commits no se vincularán a tu perfil.</p>
+    </header>
+    <Terminal client:visible lines={gitConfigUser} size="h-[190px]"/>
+  </section>
+  <section class="mt-8">
+    <header class="mb-4">
+      <h3>Creacion de clave criptografica SHA256</h3>
+    </header>
+    <Terminal client:visible lines={gitKeygen} size="h-[563px]" />
+  </section>
+  <section class="mt-8">
+    <header class="mb-4">
+      <h3>Enlazar clave generada a Github</h3>
+      <p>Copia todo el texto que devuelve el comando cat (incluyendo 'ssh-ed25519' hasta tu correo) y pégalo en la sección SSH and GPG keys dentro de la configuración de tu cuenta de GitHub.</p>
+    </header>
+    <section class="flex flex-row gap-4">
+      <Terminal client:visible lines={gitPubKey} size="h-[240px]"/>
+      <figure>
+        <Image src={GithubKey} alt="" class="w-[512px]"/>
+      </figure>
+    </section>
+  </section>
+  <section class="mt-8">
+    <header class="mb-4">
+      <h3>Prueba de conexion</h3>
+    </header>
+    <Terminal client:visible lines={gitTestConnection} size="h-[340px]"/>
+  </section>
+</section>

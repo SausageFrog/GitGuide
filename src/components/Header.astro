@@ -1,14 +1,16 @@
 ---
 // Header Component
+import { ExternalLink } from "@lucide/astro";
 ---
 
-<header class="flex flex-row items-center justify-between object-top w-screen h-25 p-8 bg-bg" >
-    <nav>
-        <a href="">Historia</a>
-
+<header class="flex flex-row items-center justify-between object-top w-screen text-sm font-medium h-25 px-20 py-4 bg-bg" >
+    <nav class="flex flex-row gap-4 items-center">
+        <!-- <a href="">Historia</a> -->
+        <a href="#initial-config">Configuracion Inicial</a>
+        <a href="#workflow">Primer Push</a>
     </nav>
-    <section class="flex flex-row gap-4">
-        <a href="">Sobre el Proyecto</a>
-        <a href="">Github</a>
+    <section class="flex flex-row gap-4 items-center">
+        <!-- <a href="">Sobre el Proyecto</a> -->
+        <a class="flex flex-row gap-2 justify-center items-center" href="https://github.com/SausageFrog/gitguide/issues">Reportar un problema <ExternalLink width={"16px"} /> </a>
     </section>
 </header>
